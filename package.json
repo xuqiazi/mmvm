@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --mode development --open",
-    "build": "webpack --mode production"
+    "build": "webpack --mode production",
+    "lint": "eslint . --fix"
   },
   "keywords": [],
   "author": "sikyrae",
@@ -19,12 +20,14 @@
     "clean-webpack-plugin": "^0.1.19",
     "countup": "^1.8.2",
     "css-loader": "^1.0.0",
+    "eslint": "^5.15.3",
+    "eslint-config-egg": "^7.3.0",
     "exports-loader": "^0.7.0",
     "file-loader": "^2.0.0",
     "html-loader": "^0.5.5",
     "html-webpack-plugin": "^3.2.0",
     "mini-css-extract-plugin": "^0.4.2",
-    "node-sass": "^4.10.0",
+    "node-sass": "^4.11.0",
     "phaser": "^3.11.0",
     "phaser-ce": "^2.11.0",
     "postcss-loader": "^3.0.0",
@@ -35,7 +38,7 @@
     "style-loader": "^0.22.1",
     "webpack": "^4.17.1",
     "webpack-cli": "^3.1.0",
-    "webpack-dev-server": "^3.1.5",
+    "webpack-dev-server": "^3.2.1",
     "zepto": "^1.2.0"
   }
 }
