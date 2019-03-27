@@ -92,6 +92,14 @@ class Vue {
     });
   }
 }
+class dom {
+  constructor() {
+    this.key = key;
+  }
+  get() {
+
+  }
+}
 
 const demo1 = new Vue({
   data: {
