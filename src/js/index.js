@@ -48,10 +48,11 @@ function defineReactive(obj, key, val) {
   });
 }
 class watcher {
-  constructor(vm, data) {
+  constructor(vm, data, root) {
     this.depIds = {};
     this.vm = vm;
     this.data = data;
+    this.root = root;
     this.val = this.get();
   }
   addDep(dep) {
@@ -64,7 +65,8 @@ class watcher {
     const val = this.get();
     if (val !== this.val) {
       this.val = val;
-
+      compile(this.vm.$options.data, this.root);
+      console.log('重新compile');
     }
   }
   get() {
@@ -82,18 +84,19 @@ class Vue {
     const root = document.querySelector(this.$options.root);
     const node = createNode(root, reg);
     observe(data);
+    // 第一次渲染
     compile(data, node);
     Object.keys(data).forEach(key => {
       this._proxy(key);
-      this.$Watch(key);
-      console.log(data, node);
-      compile(data, node);
-
+      // watch 到变更信息
+      this.$Watch(key, root);
+      // 重新渲染
+      // compile(data, node);
     });
 
   }
-  $Watch(data) {
-    new watcher(this, data);
+  $Watch(data, root) {
+    new watcher(this, data, root);
   }
   _proxy(key) {
     Object.defineProperty(this, key, {
@@ -107,11 +110,10 @@ class Vue {
 // 需要把dom 上的节点拿到并且生成
 class dom {
   constructor(data, node) {
-    this.data = data;
-    this.node = node;
     this.getNode(data, node);
   }
   getNode(data, node) {
+    // console.log('compile', data);
     Object.keys(node).forEach(key => {
       let str = node[key].innerHTML.substr(2);
       str = str.substr(0, str.length - 2);
